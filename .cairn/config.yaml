@@ -1,0 +1,42 @@
+# Cairn Configuration for Linear MCP Server
+# TypeScript/Node.js MCP server for Linear integration
+
+# Commands run after creating new worktree
+setupCommands:
+  - npm install
+
+# Commands run before creating PR (CI validation)
+ciCommands:
+  - npm run typecheck
+  - npm run lint
+  - npm test
+  - npm run build
+
+# Quick-access terminal commands for development
+terminalCommands:
+  - name: Dev Server (Watch Mode)
+    command: npm run dev
+    persistent: true
+  
+  - name: MCP Server
+    command: npm run mcp
+    persistent: true
+  
+  - name: HTTP Server
+    command: npm start
+    persistent: true
+  
+  - name: Run Tests
+    command: npm test
+  
+  - name: Type Check
+    command: npm run typecheck
+  
+  - name: Lint
+    command: npm run lint
+  
+  - name: Build
+    command: npm run build
+
+# Base branch for worktrees
+defaultBranch: main
