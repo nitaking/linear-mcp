@@ -32,21 +32,29 @@ node dist/cli.js auth login
 
 ### 3. Configure Claude Code
 
-Add to your Claude Code MCP settings (`~/.claude.json` or via Claude Code settings):
+Add via Claude Code CLI:
 
-```json
-{
-  "mcpServers": {
-    "linear-mcp": {
-      "type": "stdio",
-      "command": "node",
-      "args": ["/path/to/linear-mcp/dist/mcp-server.js"]
-    }
-  }
-}
+```bash
+# bun (recommended)
+claude mcp add linear-mcp -- bun run /path/to/linear-mcp/dist/mcp-server.js
+
+# node
+claude mcp add linear-mcp -- node /path/to/linear-mcp/dist/mcp-server.js
 ```
 
-#### bun で実行する場合
+To specify scope:
+
+```bash
+# Project scope (saved to .claude/settings.json)
+claude mcp add linear-mcp -s project -- bun run /path/to/linear-mcp/dist/mcp-server.js
+
+# User scope (saved to ~/.claude/settings.json)
+claude mcp add linear-mcp -s user -- bun run /path/to/linear-mcp/dist/mcp-server.js
+```
+
+#### Manual configuration
+
+Add to `~/.claude/settings.json` or `.claude/settings.json`:
 
 ```json
 {
