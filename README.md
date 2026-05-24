@@ -7,7 +7,7 @@ An MCP server that connects Claude Code to Linear with OAuth authentication and 
 ### 1. Install
 
 ```bash
-git clone https://github.com/bleugreen/linear-mcp.git
+git clone https://github.com/nitaking/linear-mcp.git
 cd linear-mcp
 
 # npm
@@ -24,10 +24,10 @@ bun install && bun run build
 
 ```bash
 # Opens browser for OAuth login
-lmcp auth login
+lmcp login
 
 # Or if not installed globally:
-node dist/cli.js auth login
+bun run dist/cli.js login
 ```
 
 ### 3. Configure Claude Code
@@ -77,11 +77,11 @@ Restart Claude Code and you're ready to go!
 OAuth provides a seamless authentication experience with automatic token refresh:
 
 ```bash
-lmcp auth login      # Authenticate with Linear
-lmcp auth status     # Check current auth status
-lmcp auth list       # List connected workspaces
-lmcp auth switch     # Switch active workspace
-lmcp auth logout     # Remove a workspace
+lmcp login           # Authenticate with Linear
+lmcp status          # Check current auth status
+lmcp list            # List connected workspaces
+lmcp switch          # Switch active workspace
+lmcp logout          # Remove a workspace
 ```
 
 Credentials are stored securely in `~/.linear-mcp/credentials.json`.
@@ -92,14 +92,14 @@ Connect to multiple Linear workspaces and switch between them:
 
 ```bash
 # Add first workspace
-lmcp auth login
+lmcp login
 
 # Add another workspace (will show consent screen)
-lmcp auth login
+lmcp login
 
 # Switch between them
-lmcp auth switch my-company
-lmcp auth switch side-project
+lmcp switch my-company
+lmcp switch side-project
 ```
 
 ### Environment Variable (Legacy)
@@ -118,13 +118,17 @@ Note: OAuth credentials take priority over the environment variable.
 lmcp <command> [options]
 
 Commands:
-  auth login       Authenticate with Linear via OAuth
-  auth logout      Remove a workspace's credentials
-  auth list        List all connected workspaces
-  auth switch      Switch active workspace
-  auth status      Show current authentication status
-  serve            Start the MCP server (default)
-  help             Show help message
+  login              Authenticate with Linear via OAuth
+  logout [workspace] Remove a workspace's credentials
+  list               List all connected workspaces
+  switch [workspace] Switch active workspace
+  status             Show current authentication status
+  teams              List teams in current workspace
+  bind <workspace> [team]  Bind current directory to workspace and optional team
+  unbind             Remove binding for current directory
+  bindings           List all folder bindings
+  serve              Start the MCP server (default)
+  help               Show help message
 
 Environment Variables:
   LINEAR_API_KEY       Use API key instead of OAuth (fallback)
