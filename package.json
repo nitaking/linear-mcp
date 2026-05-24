@@ -9,10 +9,15 @@
   },
   "scripts": {
     "dev": "tsx watch src/index.ts",
+    "dev:bun": "bun --watch src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js",
+    "start:bun": "bun dist/index.js",
     "mcp": "node dist/mcp-server.js",
+    "mcp:bun": "bun dist/mcp-server.js",
+    "mcp:tsx": "tsx src/mcp-server.ts",
     "cli": "node dist/cli.js",
+    "cli:bun": "bun dist/cli.js",
     "test": "jest",
     "lint": "eslint src --ext .ts",
     "typecheck": "tsc --noEmit"
