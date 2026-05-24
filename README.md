@@ -7,14 +7,17 @@ An MCP server that connects Claude Code to Linear with OAuth authentication and 
 ### 1. Install
 
 ```bash
-# Clone and build
 git clone https://github.com/bleugreen/linear-mcp.git
 cd linear-mcp
-npm install
-npm run build
 
-# Install CLI globally (optional, for easy auth management)
-npm link
+# npm
+npm install && npm run build
+
+# pnpm
+pnpm install && pnpm build
+
+# bun
+bun install && bun run build
 ```
 
 ### 2. Authenticate
@@ -38,6 +41,20 @@ Add to your Claude Code MCP settings (`~/.claude.json` or via Claude Code settin
       "type": "stdio",
       "command": "node",
       "args": ["/path/to/linear-mcp/dist/mcp-server.js"]
+    }
+  }
+}
+```
+
+#### bun で実行する場合
+
+```json
+{
+  "mcpServers": {
+    "linear-mcp": {
+      "type": "stdio",
+      "command": "bun",
+      "args": ["run", "/path/to/linear-mcp/dist/mcp-server.js"]
     }
   }
 }
