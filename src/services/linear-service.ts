@@ -114,29 +114,15 @@ export class LinearService {
   }
 
   public async listIssues(params: any) {
-    console.log('listIssues: Method called with params:', params);
     const { teamId, projectId, cycleId, assigneeId, stateId, limit = 50 } = params;
 
     return this.executeWithRetry(async () => {
-      console.log('listIssues: Starting resolution with params:', { teamId, projectId, cycleId, assigneeId, stateId, limit });
-      
-      // Resolve identifiers to UUIDs
       const resolvedTeamId = teamId ? await this.resolver.resolveTeamId(teamId) : undefined;
-      console.log('listIssues: Resolved teamId:', resolvedTeamId);
-      
       const resolvedProjectId = projectId ? await this.resolver.resolveProjectId(projectId, resolvedTeamId) : undefined;
-      console.log('listIssues: Resolved projectId:', resolvedProjectId);
-      
       const resolvedAssigneeId = assigneeId ? await this.resolver.resolveUserId(assigneeId) : undefined;
-      console.log('listIssues: Resolved assigneeId:', resolvedAssigneeId);
-      
       const resolvedStateId = stateId && resolvedTeamId ? await this.resolver.resolveStateId(stateId, resolvedTeamId) : undefined;
-      console.log('listIssues: Resolved stateId:', resolvedStateId);
 
-      // Get current user ID for the membership field that SDK auto-includes
       const viewer = await this.client.viewer;
-      console.log('viewer', viewer);
-      console.log('viewer.id', viewer.id);
       
       if (!viewer.id) {
         throw new ApiError(500, 'Unable to get current user ID for membership field', JsonRpcErrorCodes.SERVER_ERROR);
