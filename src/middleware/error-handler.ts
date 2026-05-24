@@ -25,8 +25,6 @@ export function errorHandler(
     req: {
       method: req.method,
       url: req.url,
-      headers: req.headers,
-      body: req.body,
     },
   }, 'Request error');
 

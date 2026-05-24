@@ -13,14 +13,17 @@ export function createWebhookHandler(sseManager: SSEManager, _linearService: Lin
       const signature = req.headers['linear-signature'] as string;
       const webhookSecret = process.env.WEBHOOK_SECRET;
 
-      if (webhookSecret && signature) {
+      if (webhookSecret) {
+        if (!signature) {
+          throw new ApiError(401, 'Missing webhook signature');
+        }
         const payload = JSON.stringify(req.body);
         const expectedSignature = crypto
           .createHmac('sha256', webhookSecret)
           .update(payload)
           .digest('hex');
 
-        if (signature !== expectedSignature) {
+        if (!crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expectedSignature))) {
           throw new ApiError(401, 'Invalid webhook signature');
         }
       }

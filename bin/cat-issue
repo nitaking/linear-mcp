@@ -11,6 +11,12 @@ fi
 
 ISSUE_ID="$1"
 
+# Validate issue ID format (TEAM-123)
+if ! echo "$ISSUE_ID" | grep -qE '^[A-Za-z]+-[0-9]+$'; then
+    echo "Error: Invalid issue ID format. Expected format: TEAM-123"
+    exit 1
+fi
+
 # Check if LINEAR_API_KEY is set
 if [ -z "$LINEAR_API_KEY" ]; then
     # Try to load from .env file
